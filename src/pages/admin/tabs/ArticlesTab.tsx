@@ -355,7 +355,7 @@ export const ArticlesTab: React.FC<ArticlesTabProps> = ({
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1.5">
                         <a
-                          href={`/article/${art.slug}`}
+                          href={`${window.location.hostname.endsWith('github.io') && window.location.pathname.split('/').filter(Boolean)[0] ? '/' + window.location.pathname.split('/').filter(Boolean)[0] : ''}/article/${art.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="p-1.5 rounded-lg text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 transition"

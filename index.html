@@ -12,11 +12,30 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ALLVIBEZ11 - Global & African Entertainment News" />
     <meta name="twitter:description" content="ALLVIBEZ11 is the premier entertainment portal for music artists, movie stars, Nollywood, Hollywood, celebrity news, trending culture, and music releases." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <!-- Google Search Console verification meta tag (injected or dynamic) -->
     <meta id="gsc-meta-tag" name="google-site-verification" content="" />
     <!-- Monetag verification meta tag (if configured) -->
     <meta id="monetag-meta-tag" name="monetag" content="" />
+    <!-- GitHub Pages Single Page Application Router Support -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search) {
+          var q = {};
+          l.search.slice(1).split('&').forEach(function(v) {
+            var a = v.split('=');
+            q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+          });
+          if (q.p !== undefined) {
+            window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + (q.p || '') +
+              (q.q ? ('?' + q.q) : '') +
+              l.hash
+            );
+          }
+        }
+      }(window.location));
+    </script>
   </head>
   <body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-amber-500 selection:text-slate-950">
     <div id="root"></div>

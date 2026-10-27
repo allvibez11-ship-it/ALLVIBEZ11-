@@ -15,13 +15,44 @@ import { StaticPages } from './pages/StaticPages';
 import { AdminLogin } from './pages/admin/AdminLogin';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 
+// Helper to detect repository subpath on GitHub Pages (e.g. /ALLVIBEZ11- or /allvibez11-ship-it)
+export function getBasePrefix(): string {
+  if (typeof window === 'undefined') return '';
+  const isGithubPages = window.location.hostname.endsWith('github.io');
+  if (isGithubPages) {
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    if (parts.length > 0) {
+      return '/' + parts[0];
+    }
+  }
+  return '';
+}
+
+// Extract internal route stripped of repository base prefix or hash
+export function extractInternalRoute(): string {
+  if (typeof window === 'undefined') return '/';
+
+  // 1. Check hash routing first (e.g. #/article/xyz or #/admin)
+  if (window.location.hash) {
+    const cleanHash = window.location.hash.replace(/^#\/?/, '/');
+    return cleanHash || '/';
+  }
+
+  // 2. Extract from pathname
+  const basePrefix = getBasePrefix();
+  let path = window.location.pathname;
+  if (basePrefix && path.startsWith(basePrefix)) {
+    path = path.substring(basePrefix.length);
+  }
+  if (!path || path === '') return '/';
+  return path;
+}
+
 export default function App() {
   // Navigation / Routing State
-  const [currentRoute, setCurrentRoute] = useState<string>(
-    window.location.pathname || '/'
-  );
+  const [currentRoute, setCurrentRoute] = useState<string>(extractInternalRoute);
   const [searchParams, setSearchParams] = useState<string>(
-    window.location.search || ''
+    typeof window !== 'undefined' ? window.location.search : ''
   );
 
   // Global Public Data
@@ -35,20 +66,28 @@ export default function App() {
   const [initialSetupRequired, setInitialSetupRequired] = useState(false);
   const [checkingAdminAuth, setCheckingAdminAuth] = useState(true);
 
-  // Sync with browser navigation
+  // Sync with browser navigation (popstate & hashchange)
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentRoute(window.location.pathname || '/');
+      setCurrentRoute(extractInternalRoute());
       setSearchParams(window.location.search || '');
     };
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
   }, []);
 
   const navigate = (to: string) => {
-    window.history.pushState({}, '', to);
+    const basePrefix = getBasePrefix();
+    // Build full path including repo base prefix for pushState
+    const fullUrl = to.startsWith('/') ? `${basePrefix}${to}` : `${basePrefix}/${to}`;
+    window.history.pushState({}, '', fullUrl);
+
     const [path, query] = to.split('?');
-    setCurrentRoute(path);
+    setCurrentRoute(path.startsWith('/') ? path : `/${path}`);
     setSearchParams(query ? `?${query}` : '');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

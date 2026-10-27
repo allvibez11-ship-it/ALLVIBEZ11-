@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ALLVIBEZ11 - Redirecting...</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      // This script takes the current url and converts the path and query
+      // string into just a query string, and then redirects the browser
+      // to the new url with only a query string and hash fragment.
+      
+      // If you are deploying to https://<USERNAME>.github.io/<REPO>/,
+      // pathSegmentsToKeep should be 1.
+      // If you are deploying to a custom domain (e.g. https://allvibez11.com),
+      // pathSegmentsToKeep should be 0.
+      var isCustomDomain = !window.location.hostname.endsWith('github.io');
+      var pathSegmentsToKeep = isCustomDomain ? 0 : 1;
+
+      var l = window.location;
+      var repoBase = l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/');
+      var routePath = l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/');
+
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        repoBase + '/?p=/' + routePath.replace(/&/g, '~and~') +
+        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body style="background-color: #020617; color: #f8fafc; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+    <div style="text-align: center;">
+      <h2 style="margin-bottom: 8px;">ALLVIBEZ11</h2>
+      <p style="color: #94a3b8; font-size: 14px;">Loading entertainment news...</p>
+    </div>
+  </body>
+</html>

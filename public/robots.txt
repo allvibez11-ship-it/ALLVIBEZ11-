@@ -1,0 +1,18 @@
+# ALLVIBEZ11 - Robots Configuration for Search Engines
+User-agent: *
+Allow: /
+Allow: /article/*
+Allow: /music
+Allow: /movies
+Allow: /nollywood
+Allow: /hollywood
+Allow: /celebrity-news
+Allow: /trending
+Allow: /sitemap.xml
+Allow: /favicon.svg
+Allow: /logo.svg
+
+# Disallow administrative dashboard from search engine indexing
+Disallow: /admin
+
+Sitemap: https://allvibez11-ship-it.github.io/ALLVIBEZ11-/sitemap.xml
