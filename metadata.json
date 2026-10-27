@@ -1,0 +1,6 @@
+{
+  "name": "ALLVIBEZ11 - Global & African Entertainment News",
+  "description": "ALLVIBEZ11 is the premier entertainment portal for music artists, movie stars, Nollywood, Hollywood, celebrity news, trending culture, and music releases.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
